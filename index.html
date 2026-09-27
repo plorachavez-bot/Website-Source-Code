@@ -1,12 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8>
+  <meta charset="UTF-8">
   <title>Boba Byte</title>
   <style>
+
     body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: #3b2a20;
+      color: white;
+    }
+
+    nav .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 24px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+
+    .banner {
+      background: #c17a3d;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .banner h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .banner button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #c17a3d;
+      cursor: pointer;
+    }
+
+    .banner button:hover {
+      background: #f0e6d8;
+    }
+
+
+    .drinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .drink-card {
+      width: 180px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .drink-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .drink-card .emoji {
+      font-size: 2rem;
+    }
+
+    .drink-card .price {
+      color: #c17a3d;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+
+    .about {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      text-align: center;
+      color: #555;
+    }
+
+  </style>
 </head>
+<body>
+
+  <nav>
+    <div class="logo">🧋 Boba Byte</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="build.html">Build Your Drink</a>
+      <a href="order.html">Order</a>
+    </div>
+  </nav>
+
+  <section class="banner">
+    <h1>Welcome to Boba Byte</h1>
+    <p>Fresh tea. Endless combinations.</p>
+    <button onclick="window.location.href='menu.html'">View Our Menu</button>
+  </section>
+
+  <section class="drinks">
+    <div class="drink-card">
+      <div class="emoji">🧋</div>
+      <div>Brown Sugar Milk Tea</div>
+      <div class="price">$5.50</div>
+    </div>
+    <div class="drink-card">
+      <div class="emoji">🍓</div>
+      <div>Strawberry Milk Tea</div>
+      <div class="price">$5.25</div>
+    </div>
+    <div class="drink-card">
+      <div class="emoji">🥭</div>
+      <div>Mango Green Tea</div>
+      <div class="price">$4.75</div>
+    </div>
+    <div class="drink-card">
+      <div class="emoji">🍵</div>
+      <div>Matcha Milk Tea</div>
+      <div class="price">$5.50</div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About Us</h2>
+    <p>Boba Byte is a locally owned café specializing in customizable milk teas, fruit teas, coffees, and fresh toppings.</p>
+  </section>
+
+</body>
+</html>
+
