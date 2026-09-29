@@ -140,7 +140,6 @@
     filterButtons.forEach(function (button) {
       button.addEventListener('click', function () {
 
-        // Mark this button as the active one, un-mark the rest
         filterButtons.forEach(function (b) { b.classList.remove('active'); });
         button.classList.add('active');
 
