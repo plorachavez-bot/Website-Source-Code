@@ -1,0 +1,198 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Build Your Drink | Boba Byte </title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-s erif; color: #222; }
+
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: #3b2a20; color: white;}
+        nav .logo {font-size: 1.3rem; font-weight: bold;}
+        nav a { color: white; text-decoration: none; margin-left: 24px; }
+        nav a:hover { text-decoration: underline; }
+
+        .banner { background: #c17a3d; color: white; text-align: center; padding: 50px 20px; }
+        .banner h1 {font-size: 2.2rem; margin: 0 0 8px; }
+
+
+        .builder { display: flex; gap: 32px; max-width: 1100px; margin: 0 auto; padding: 40px 20px; align-items: flex-start; }
+        .steps { flex: 1; }
+        h2 { color: #3b2a20; font-size: 1.2rem ; }
+
+        /* These cards have the same hover effect as the drink cards */
+
+        .options { display: flex; flex-wrap: wrap; gap:12px; }
+        .options input { position: absolute; opacity: 0; }
+        .option { display: block; padding: 14px 18px; border: 1px solid #ddd; border-radius: 12px; cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .options input { position: absolute; opacity: 0; }
+        .option:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.15) }
+        .options input:checked + .option { outline: 2px solid #3b2a3b; }
+        .price { color: #c17a3d; font-weight: bold;}
+
+        .stepper button, .stepper input { width: 40px; height: 40px; font-size: 1.1rem; text-align: center;
+            border: 1px solid #ddd; border-radius: 8px; background: white; }
+
+        .summary { width: 200px; position: sticky; top: 20px; padding: 24px; border: 1px solid #ddd; border-radius: 12px; }
+        .summary p {display: flex; justify-content: space-between; gap: 12px; margin: 8px 0; }
+        .total { border-top: 1px solid#ddd; padding-top: 16px; font-size:  1.4rem; font-weight: bold; color: #c17a3d }
+        .summary button { width: 100%; margin-top: 16px; font-size: 1rem; border: none;
+            border-radius: 8px; background: #c17a3d; }
+        
+
+        footer {background: #3b2a20; color: white; text-align: center; padding: 20px; }
+        @media (max-width: 800px) { 
+            .builder { flex-direction: column; }
+            .summary {width: auto; position: static; align-self: stretch}
+        }
+
+    
+     </style>
+
+    </head>
+
+<body> 
+
+
+    <nav>
+        <div class="logo">Boba Byte </div>
+
+        <div> 
+            <a href="index.html">Home</a>
+            <a href="menu.html">menu</a>
+            <a href="build.html">Build Your Drink</a>
+
+        
+        </div>
+     </nav>
+
+    <section class="banner">
+        <h1>Build Your Drink</h1>
+        <p>Pick your drink, size, and toppings. Your total updates as you go.</p>
+    </section>
+
+    <main class="builder">
+        <div class="steps">
+             <h2>Step 1: Choose your drink</h2>   <div class="options" id="drink"></div>
+             <h2>Step 2: Choose a size</h2>       <div class="options" id="size"></div>
+             <h2>Step 3: Choose sweetness</h2>    <div class="options" id="sweetness"></div>
+             <h2>Step 4: Choose ice</h2>          <div class="options" id="ice"></div>
+             <h2>Step 5: Add toppings</h2>        <div class="options" id="topping"></div>
+             <h2>Step 6: Quantity</h2>
+             <div class="stepper">
+                <button id="minus" aria-label="Decrease quatity">&minus;</button>
+                <input id="qty" value="1" aria-label="Quantity">
+                <button id="plus" aria-label="Increase quantity">+</button>
+             </div>
+         
+        </div>
+
+
+        <aside class="summary">
+            <h2>Your Drink</h2>
+            <div id="details"></div>
+            <p class="total"><span>Total</span><span id="total">$0.00</span></p>
+            <button id="add">Add to Order</button>
+            <p id="mesasge" role="status"></p>
+        </aside>
+    </main>
+
+
+    <footer><p>&copy; 2026 Boba Byte </p></footer>
+
+    <script>
+        //All of the available choices that are stored here. If a selected option doesn't change the price it will be 0
+        const choices= {
+            drink: ["Classic Milk Tea", "Brown Sugar Milk Tea", "Thai Milk Tea", "Taro Milk Tea", "Matcha Milk Tea",
+              "Strawberry Tea", "Mango Tea", "Peach Tea", "Passion Fruit Tea", "Iced Coffee",
+              "Caramel Coffee", "Vietnamese Coffee"].map(name => [name, 0]),
+            size: [["Small", 4.00], ["Medium", 5.00],["Large", 6.00]],
+            sweetness: ["0%", "25%", "50%", "75%", "100%"].map(name => [name, 0]),
+            ice: ["No ice", "Light ice", "Regular Ice", "Extra Ice"].map(name => [name,0]),
+            topping: [["Tapioca Pearls", 0.75], ["Strawberry Popping Boba",0.75]["Mango Popping Boba", 0.75] ["Jelly", 0.75] ["Pudding", 0.75]]
+
+            
+        };
+        const defaults = ["Small", "100%", "Regular Ice"];
+
+        // Build the options cards, topping use checkboxes, everything else uses radio buttons.
+        for (const group in choices) {
+            const type = group === "topping" ? "checkbox" : "";
+            let html = "";
+            for (const[name, price] of choices[group]) {
+                const checked = defaults.includes(name) ? "checked" : "";
+                let label = name;
+                if (group === "size") label += ' <span class="price">$${price.tofixed(2)}</span>';
+                if (group === "topping") label += ' <span class="price">$${price.tofixed(2)}</span>';
+                html += '<label><input type="${type}" name="{group}" value="${name}" data-price="${price}" ${checked}> <span class="option">${label}</span></label>';
+                                
+            
+            }
+            document.getElementById(group).innerHTML =html;
+        }
+
+        const qtyBox = document.getElementById("qty");
+        const message = document.getElementById("message");
+
+
+        // Check the quantity before you use it: whole number from 1 to 20, otherwise change it
+        function getQty() {
+            let qty = parseInt(qtyBox.value);
+            if (isNaN(qty) || qty < 1) qty = 1;
+            if (qty > 20) qty = 20;
+            qtyBox.value = qty;
+            return qty;
+        }
+
+        function picked(group) {
+            return [...document.querySelectorAll('input [name="${group}"]:checekd')];
+        }
+
+
+        // This recalculates the price and updates the summary box
+        function update() {
+            const size = picked("size")[0];
+            const toppings = picked("topping");
+            const qty = getQty();
+
+            let each = Number(size.datset.price);
+            toppings.forEach(t => each += Number(t.dataset.price));
+
+            const rows = [
+                ["Drink", picked("drink")[0]?.value || "Not chosen"],
+                ["Size", size.value],
+                ["Sweetness", picked("sweetness")[0].value],
+                ["Ice", picked("ice")[0].value],
+                ["Topping", toppings.map(t => t.value).join(", ") || "None"],
+                ["Price each", "$" + each.toFixed(2)],
+                ["Quantity", qty]
+
+        ];
+
+        document.getElementById("details").innerHTML =
+          rows.map(([label, value]) => '<p><span>${label}</span><span>${value}</span></p>').join("");
+        document.getElementId("total").textContent = "$" = (each * qty).tofixed(2);
+        message.textContent = "";
+    }
+
+
+    document.querySelectorAll(".options input").forEach(input => input.addEventListener("change", update));
+    qtyBox.addEventListener("change", update);
+    document.getElementById("minus").onclick = () => { qtyBox.value = getQty() - 1; update(); };
+    document.getElementById("plus").onclick = () => { qtyBox.value = getQty() + 1; update(); };
+
+    document.getElementById("add").onclick = () => {
+        const drink = picked("drink")[0];
+        message.style.color = drink ? "#2e7d32" : "#b3261e"
+        message.textContent = drink
+          ? 'Added ${getQty()} ${drink.value} to your order (${document.getElementById("total").textContent})'
+          : "Choose a drink is Step 1 before adding to your order.";
+
+     };
+
+     update();
+    
+    </script>
+</body>
+</html>
