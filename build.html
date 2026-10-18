@@ -118,7 +118,7 @@
 
         // Build the options cards, topping use checkboxes, everything else uses radio buttons.
         for (const group in choices) {
-            const type = group === "topping" ? "checkbox" : "";
+            const type = group === "topping" ? "checkbox" : "radio";
             let html = "";
             for (const[name, price] of choices[group]) {
                 const checked = defaults.includes(name) ? "checked" : "";
