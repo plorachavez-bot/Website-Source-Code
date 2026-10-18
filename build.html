@@ -1,11 +1,11 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Build Your Drink | Boba Byte </title>
     <style>
-        body { margin: 0; font-family: Arial, sans-s erif; color: #222; }
+        body { margin: 0; font-family: Arial, sans-serif; color: #222; }
 
         nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: #3b2a20; color: white;}
         nav .logo {font-size: 1.3rem; font-weight: bold;}
@@ -94,7 +94,7 @@
             <div id="details"></div>
             <p class="total"><span>Total</span><span id="total">$0.00</span></p>
             <button id="add">Add to Order</button>
-            <p id="mesasge" role="status"></p>
+            <p id="message" role="status"></p>
         </aside>
     </main>
 
@@ -110,7 +110,7 @@
             size: [["Small", 4.00], ["Medium", 5.00],["Large", 6.00]],
             sweetness: ["0%", "25%", "50%", "75%", "100%"].map(name => [name, 0]),
             ice: ["No ice", "Light ice", "Regular Ice", "Extra Ice"].map(name => [name,0]),
-            topping: [["Tapioca Pearls", 0.75], ["Strawberry Popping Boba",0.75]["Mango Popping Boba", 0.75] ["Jelly", 0.75] ["Pudding", 0.75]]
+            topping: [["Tapioca Pearls", 0.75], ["Strawberry Popping Boba",0.75], ["Mango Popping Boba", 0.75], ["Jelly", 0.75], ["Pudding", 0.75]]
 
             
         };
@@ -123,9 +123,9 @@
             for (const[name, price] of choices[group]) {
                 const checked = defaults.includes(name) ? "checked" : "";
                 let label = name;
-                if (group === "size") label += ' <span class="price">$${price.tofixed(2)}</span>';
-                if (group === "topping") label += ' <span class="price">$${price.tofixed(2)}</span>';
-                html += '<label><input type="${type}" name="{group}" value="${name}" data-price="${price}" ${checked}> <span class="option">${label}</span></label>';
+                if (group === "size") label += ` <span class="price">$${price.toFixed(2)}</span>`;
+                if (group === "topping") label += ` <span class="price">$${price.toFixed(2)}</span>`;
+                html += ` <label><input type="${type}" name="${group}" value="${name}" data-price="${price}" ${checked}> <span class="option">${label}</span></label>`;
                                 
             
             }
@@ -146,7 +146,7 @@
         }
 
         function picked(group) {
-            return [...document.querySelectorAll('input [name="${group}"]:checekd')];
+            return [...document.querySelectorAll(`input[name="${group}"]:checked`)];
         }
 
 
@@ -156,7 +156,7 @@
             const toppings = picked("topping");
             const qty = getQty();
 
-            let each = Number(size.datset.price);
+            let each = Number(size.dataset.price);
             toppings.forEach(t => each += Number(t.dataset.price));
 
             const rows = [
@@ -171,8 +171,8 @@
         ];
 
         document.getElementById("details").innerHTML =
-          rows.map(([label, value]) => '<p><span>${label}</span><span>${value}</span></p>').join("");
-        document.getElementId("total").textContent = "$" = (each * qty).tofixed(2);
+          rows.map(([label, value]) => `<p><span>${label}</span><span>${value}</span></p>`).join("");
+        document.getElementById("total").textContent = "$" + (each * qty).toFixed(2);
         message.textContent = "";
     }
 
@@ -186,7 +186,7 @@
         const drink = picked("drink")[0];
         message.style.color = drink ? "#2e7d32" : "#b3261e"
         message.textContent = drink
-          ? 'Added ${getQty()} ${drink.value} to your order (${document.getElementById("total").textContent})'
+          ? `Added ${getQty()} ${drink.value} to your order (${document.getElementById("total").textContent})`
           : "Choose a drink is Step 1 before adding to your order.";
 
      };
