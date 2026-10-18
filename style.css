@@ -1,0 +1,128 @@
+
+/* ===== ORDER PAGE ===== */
+
+/* Main checkout layout */
+.order-section,
+.pickup-section {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section headings */
+.order-section h1,
+.pickup-section h2 {
+    text-align: center;
+    color: #4b2e2e;
+    margin-bottom: 20px;
+}
+
+/* Order list */
+#orderList {
+    margin-bottom: 20px;
+}
+
+.order-line {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f8f4f0;
+    border-radius: 6px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Order totals */
+.order-totals {
+    padding-top: 15px;
+    border-top: 2px solid #ddd;
+}
+
+.order-totals p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.order-totals p:last-child {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4b2e2e;
+}
+
+/* Pickup form */
+#pickupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pickup-section .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.pickup-section .form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input fields */
+.pickup-section input[type="text"],
+.pickup-section input[type="tel"],
+.pickup-section input[type="email"],
+.pickup-section input[type="datetime-local"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Highlight selected input */
+.pickup-section input:focus {
+    outline: none;
+    border-color: #8b5e3c;
+}
+
+/* Confirmation checkbox */
+.pickup-section input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.pickup-section label[for="confirmCheckbox"] {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+/* Place Order button */
+#placeOrderBtn {
+    padding: 14px;
+    background-color: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#placeOrderBtn:hover {
+    background-color: #6d452b;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .order-section,
+    .pickup-section {
+        margin: 15px;
+        padding: 15px;
+    }
+}
