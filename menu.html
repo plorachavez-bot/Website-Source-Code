@@ -1,14 +1,17 @@
-<!DOCTPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title> Menu - Boba Byte</title>
+  <title>Menu — Boba Byte</title>
   <style>
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       color: #222;
     }
+
+
     nav {
       display: flex;
       align-items: center;
@@ -17,13 +20,13 @@
       background: #3b2a20;
       color: white;
     }
-      
+
     nav .logo {
       font-size: 1.3rem;
       font-weight: bold;
     }
-      
-    nav .a {
+
+    nav a {
       color: white;
       text-decoration: none;
       margin-left: 24px;
@@ -36,12 +39,13 @@
     main {
       max-width: 700px;
       margin: 0 auto;
-      padding: 40px 20 px 80px;
+      padding: 40px 20px 80px;
     }
 
     h1 {
       text-align: center;
     }
+
 
     .filters {
       display: flex;
@@ -51,38 +55,45 @@
       flex-wrap: wrap;
     }
 
-      .filters button {
-        padding: 8px 16px;
-        border: 1px solid #c17a3d;
-        border-radius: 999px;
-        background: white;
-        color: #c17a3d;
-        cursor: pointer;
-        font-size: 0.9rem;
-      }
+    .filters button {
+      padding: 8px 16px;
+      border: 1px solid #c17a3d;
+      border-radius: 999px;
+      background: white;
+      color: #c17a3d;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
 
-      .filters button.active {
-        background: #c17a3d
-        color: white;
-      }
+    /* The currently active filter button looks "pressed in" */
+    .filters button.active {
+      background: #c17a3d;
+      color: white;
+    }
 
-      th, td {
-        text-align: left;
-        padding: 10px 12px
-        border-bottom: 1px solid #ddd;
-      }
 
-      th {
-        background: #f5ede1;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-      td:last-child, th:last-child {
-        text-align: right;
-      }    
-    </style>
-      
-  </head>
-  <body>
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f5ede1;
+    }
+
+    td:last-child, th:last-child {
+      text-align: right;
+    }
+
+  </style>
+</head>
+<body>
 
   <nav>
     <div class="logo">🧋 Boba Byte</div>
@@ -140,6 +151,7 @@
     filterButtons.forEach(function (button) {
       button.addEventListener('click', function () {
 
+        // Mark this button as the active one, un-mark the rest
         filterButtons.forEach(function (b) { b.classList.remove('active'); });
         button.classList.add('active');
 
@@ -159,4 +171,3 @@
 
 </body>
 </html>
-
