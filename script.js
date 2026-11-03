@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        const order - JSON.parse(localStorage.getItem("order")) || [];
+        const order = JSON.parse(localStorage.getItem("order")) || [];
         if (order.length === 0) {
             alert("Your order is empty. Add a drink first.");
             return;
@@ -61,5 +61,5 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Thanks, " + document.getElementById("firstName").value +"! Your order has been placed."); localStorage.removeItem("order");
         form.reset();
         displayOrder();
-    };
-};
+    });
+});
