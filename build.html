@@ -26,9 +26,8 @@
         .options input { position: absolute; opacity: 0; }
         .option { display: block; padding: 14px 18px; border: 1px solid #ddd; border-radius: 12px; cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.15s ease; }
-        .options input { position: absolute; opacity: 0; }
         .option:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.15) }
-        .options input:checked + .option { outline: 2px solid #3b2a3b; }
+        .options input:checked + .option { outline: 2px solid #3b2a20; }
         .price { color: #c17a3d; font-weight: bold;}
 
         .stepper button, .stepper input { width: 40px; height: 40px; font-size: 1.1rem; text-align: center;
@@ -36,9 +35,9 @@
 
         .summary { width: 200px; position: sticky; top: 20px; padding: 24px; border: 1px solid #ddd; border-radius: 12px; }
         .summary p {display: flex; justify-content: space-between; gap: 12px; margin: 8px 0; }
-        .total { border-top: 1px solid#ddd; padding-top: 16px; font-size:  1.4rem; font-weight: bold; color: #c17a3d }
+        .total { border-top: 1px solid #ddd; padding-top: 16px; font-size:  1.4rem; font-weight: bold; color: #c17a3d }
         .summary button { width: 100%; margin-top: 16px; font-size: 1rem; border: none;
-            border-radius: 8px; background: #c17a3d; }
+            border-radius: 8px; background: #c17a3d; color: white; padding: 12px; cursor: pointer; }
         
 
         footer {background: #3b2a20; color: white; text-align: center; padding: 20px; }
@@ -60,8 +59,9 @@
 
         <div> 
             <a href="index.html">Home</a>
-            <a href="menu.html">menu</a>
+            <a href="menu.html">Menu</a>
             <a href="build.html">Build Your Drink</a>
+            <a href="order.html">Order</a>
 
         
         </div>
@@ -81,7 +81,7 @@
              <h2>Step 5: Add toppings</h2>        <div class="options" id="topping"></div>
              <h2>Step 6: Quantity</h2>
              <div class="stepper">
-                <button id="minus" aria-label="Decrease quatity">&minus;</button>
+                <button id="minus" aria-label="Decrease quantity">&minus;</button>
                 <input id="qty" type="number" min="1" max="20" value="1" aria-label="Quantity">
                 <button id="plus" aria-label="Increase quantity">+</button>
              </div>
@@ -97,7 +97,7 @@
             <p id="message" role="status"></p>
         </aside>
     </main>
-
+    
 
     <footer><p>&copy; 2026 Boba Byte </p></footer>
 
@@ -148,6 +148,14 @@
         function picked(group) {
             return [...document.querySelectorAll(`input[name="${group}"]:checked`)];
         }
+        
+        function priceEach() {
+            const drink = picked("drink")[0];
+            let each = drink ? Number(drink.dataset.price) : 0;
+            each += Number(picked("size")[0].dataset.price);
+            picked("topping").forEach(t => each += Number(t.dataset.price));
+            return each;
+        }
 
 
         // This recalculates the price and updates the summary box
@@ -156,9 +164,7 @@
             const toppings = picked("topping");
             const qty = getQty();
 
-            let each = Number(size.dataset.price);
-            toppings.forEach(t => each += Number(t.dataset.price));
-
+            const each = priceEach();
             const rows = [
                 ["Drink", picked("drink")[0]?.value || "Not chosen"],
                 ["Size", size.value],
@@ -184,13 +190,26 @@
 
     document.getElementById("add").onclick = () => {
         const drink = picked("drink")[0];
-        message.style.color = drink ? "#2e7d32" : "#b3261e"
-        message.textContent = drink
-          ? `Added ${getQty()} ${drink.value} to your order (${document.getElementById("total").textContent})`
-          : "Choose a drink is Step 1 before adding to your order.";
-
-     };
-
+        if (!drink) {
+            message.style.color = "#b3261e";
+            message.textContent = "Choose a drink in Step 1 before adding to your order.";
+            return;
+        }
+        const item = {
+            drink: drink.value,
+            size: picked("size")[0].value,
+            sweetness: picked("sweetness")[0].value,
+            ice: picked("ice")[0].value,
+            toppings: picked("topping").map(t => t.value),
+            quantity: getQty(),
+            price: priceEach()
+        };
+        const order = JSON.parse(localStorage.getItem("order")) || [];
+        order.push(item);
+        localStorage.setItem("order", JSON.stringify(order));
+        message.style.color = "#2e7d32";
+        message.textContent= `Added ${item.quantity} ${item.drink} to your order (${document.getElementById("total").textContent})`;
+    };
      update();
     
     </script>
