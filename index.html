@@ -6,8 +6,6 @@
   <link rel="stylesheet" href="style.css">
   <style>
 
-    
-
     .drinks {
       display: flex;
       flex-wrap: wrap;
@@ -17,6 +15,9 @@
     }
 
     .drink-card {
+      display: block;
+      color: inherit;
+      text-decoration: none;
       width: 180px;
       padding: 20px;
       border: 1px solid #ddd;
@@ -70,27 +71,26 @@
   </section>
 
   <section class="drinks">
-    <div class="drink-card">
+    <a class="drink-card" href="build.html?drink=Brown Sugar Milk Tea">
       <div class="emoji">🧋</div>
       <div>Brown Sugar Milk Tea</div>
       <div class="price">$5.50</div>
-    </div>
-    <a class="drink-card" hreh="build.html?drink=Strawberry Tea">
+    </a>
+    <a class="drink-card" href="build.html?drink=Strawberry Tea">
       <div class="emoji">🍓</div>
       <div>Strawberry Tea</div>
       <div class="price">$4.75</div>
     </a>
-    </div>
-    <div class="drink-card">
+    <a class="drink-card" href="build.html?drink=Mango Tea">
       <div class="emoji">🥭</div>
-      <div>Mango Green Tea</div>
+      <div>Mango Tea</div>
       <div class="price">$4.75</div>
-    </div>
-    <div class="drink-card">
+    </a>
+    <a class="drink-card" href="build.html?drink=Matcha Milk Tea">
       <div class="emoji">🍵</div>
       <div>Matcha Milk Tea</div>
       <div class="price">$5.50</div>
-    </div>
+    </a>
   </section>
 
   <section class="about">
@@ -98,8 +98,8 @@
     <p>Boba Byte is a locally owned café specializing in customizable milk teas, fruit teas, coffees, and fresh toppings.</p>
   </section>
 
+  <footer><p>&copy; 2026 Boba Byte</p></footer>
+
 </body>
 </html>
-
-<footer><p>&copy; 2026 Boba Byte</p></footer>
 
