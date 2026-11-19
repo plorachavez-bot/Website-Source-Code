@@ -104,3 +104,43 @@
         <tr data-category="Fruit Tea"><td>Passion Fruit Tea</td><td>$5.00</td></tr>
 
         <tr data-category="Coffee"><td>Iced Coffee</td><td>$4.00</td></tr>
+        <tr data-category="Coffee"><td>Caramel Coffee</td><td>$4.75</td></tr>
+        <tr data-category="Coffee"><td>Vietnamese Coffee</td><td>$5.25</td></tr>
+
+        <tr data-category="Toppings"><td>Tapioca Pearls</td><td>$0.75</td></tr>
+        <tr data-category="Toppings"><td>Popping Boba</td><td>$0.75</td></tr>
+        <tr data-category="Toppings"><td>Jelly</td><td>$0.50</td></tr>
+        <tr data-category="Toppings"><td>Pudding</td><td>$0.75</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer><p>&copy; 2026 Boba Byte</p></footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filters button');
+    const rows = document.querySelectorAll('#menuTable tbody tr');
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+
+        // Mark this button as the active one, un-mark the rest
+        filterButtons.forEach(function (b) { b.classList.remove('active'); });
+        button.classList.add('active');
+
+        const chosenCategory = button.dataset.category;
+
+        // Show every row if "All" was picked, otherwise only matching rows
+        rows.forEach(function (row) {
+          if (chosenCategory === 'all' || row.dataset.category === chosenCategory) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
