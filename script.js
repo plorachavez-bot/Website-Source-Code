@@ -18,7 +18,7 @@ function displayOrder() {
         orderList.textContent = "Your order is empty.";
     }
     let subtotal = 0;
-    // Loop through each saved drink
+    
        // Loop through each saved drink (index is its spot in the saved order)
     order.forEach(function(drink, index) {
         const orderLine = document.createElement("div");
@@ -102,14 +102,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const order = JSON.parse(localStorage.getItem("order")) || [];
         
         if (order.length === 0) {
-            alert("Your order is empty. Add a drink first.");
+           showMessage("Your order is empty. Add a drink first.", "#b3261e");
             return;
         }
-        alert("Thanks, " + document.getElementById("firstName").value +"! Your order has been placed."); localStorage.removeItem("order");
+                showMessage("Thanks, " + document.getElementById("firstName").value + "! Your order has been placed.", "#2e7d32");
+        localStorage.removeItem("order");
         form.reset();
         displayOrder();
     });
 });
-            showMessage("Your order is empty. Add a drink first.", "#b3261e");
-        ...
-        showMessage("Thanks, " + document.getElementById("firstName").value + "! Your order has been placed.", "#2e7d32");
+          
