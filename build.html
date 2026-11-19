@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Build Your Drink | Boba Byte </title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; color: #222; }
-
-        nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: #3b2a20; color: white;}
-        nav .logo {font-size: 1.3rem; font-weight: bold;}
-        nav a { color: white; text-decoration: none; margin-left: 24px; }
-        nav a:hover { text-decoration: underline; }
-
-        .banner { background: #c17a3d; color: white; text-align: center; padding: 50px 20px; }
-        .banner h1 {font-size: 2.2rem; margin: 0 0 8px; }
+      .banner {padding: 50px 20px; }
+      .banner h1 {font-size: 2.2rem; margin: 0 0 8px; }
 
 
         .builder { display: flex; gap: 32px; max-width: 1100px; margin: 0 auto; padding: 40px 20px; align-items: flex-start; }
@@ -39,7 +33,6 @@
         .summary button { width: 100%; margin-top: 16px; font-size: 1rem; border: none;
             border-radius: 8px; background: #c17a3d; color: white; padding: 12px; cursor: pointer; }
         
-
         footer {background: #3b2a20; color: white; text-align: center; padding: 20px; }
         @media (max-width: 800px) { 
             .builder { flex-direction: column; }
@@ -104,15 +97,15 @@
     <script>
         //All of the available choices that are stored here. If a selected option doesn't change the price it will be 0
         const choices= {
-            drink: ["Classic Milk Tea", "Brown Sugar Milk Tea", "Thai Milk Tea", "Taro Milk Tea", "Matcha Milk Tea",
-              "Strawberry Tea", "Mango Tea", "Peach Tea", "Passion Fruit Tea", "Iced Coffee",
-              "Caramel Coffee", "Vietnamese Coffee"].map(name => [name, 0]),
-            size: [["Small", 4.00], ["Medium", 5.00],["Large", 6.00]],
+            drink: [["Classic Milk Tea", 4.50],  ["Brown Sugar Milk Tea", 5.50] ["Thai Milk Tea", 5.00] ["Taro Milk Tea", 5.25],  ["Matcha Milk Tea", 5.50]
+              ["Strawberry Tea", 4.75] ["Mango Tea", 4.75] ["Peach Tea", 4.50] ["Passion Fruit Tea", 5.00] ["Iced Coffee", 4.00],
+              ["Caramel Coffee", 4.75] ["Vietnamese Coffee", 5.25].map(name => [name, 0]),
+            size: [["Small", 0], ["Medium", .50],["Large", 1.00]],
             sweetness: ["0%", "25%", "50%", "75%", "100%"].map(name => [name, 0]),
             ice: ["No ice", "Light ice", "Regular Ice", "Extra Ice"].map(name => [name,0]),
             topping: [["Tapioca Pearls", 0.75], ["Strawberry Popping Boba",0.75], ["Mango Popping Boba", 0.75], ["Jelly", 0.75], ["Pudding", 0.75]]
 
-            
+            ["Jelly", 0.50]
         };
         const defaults = ["Small", "100%", "Regular Ice"];
 
@@ -123,8 +116,8 @@
             for (const[name, price] of choices[group]) {
                 const checked = defaults.includes(name) ? "checked" : "";
                 let label = name;
-                if (group === "size") label += ` <span class="price">$${price.toFixed(2)}</span>`;
-                if (group === "topping") label += ` <span class="price">$${price.toFixed(2)}</span>`;
+                if (group === "drink") label += ` <span class="price">$${price.toFixed(2)}</span>`;
+                if (group === "size"|| group === "topping") label += ` <span class="price">$${price.toFixed(2)}</span>`;
                 html += ` <label><input type="${type}" name="${group}" value="${name}" data-price="${price}" ${checked}> <span class="option">${label}</span></label>`;
                                 
             
@@ -134,7 +127,11 @@
 
         const qtyBox = document.getElementById("qty");
         const message = document.getElementById("message");
-
+                // If the home page sent a drink (build.html?drink=Mango Tea), select it
+        const fromHome = new URLSearchParams(window.location.search).get("drink");
+        document.querySelectorAll('input[name="drink"]').forEach(input => {
+            if (input.value === fromHome) input.checked = true;
+        });
 
         // Check the quantity before you use it: whole number from 1 to 20, otherwise change it
         function getQty() {
