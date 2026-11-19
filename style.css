@@ -22,9 +22,10 @@ footer { background: #3b2a20; color: white; text-align: center; padding: 20px; }
     border: none;
     border-radius: 8px;
     background: white;
-    color: #c17a3d
+    color: #c17a3d;
     cursor: pointer;
 }
+.banner button:hover { background: #f0e6d8; } 
     
 /* ===== ORDER PAGE ===== */
 
