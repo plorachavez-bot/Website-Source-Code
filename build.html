@@ -97,10 +97,11 @@
     <script>
         //All of the available choices that are stored here. If a selected option doesn't change the price it will be 0
         const choices= {
-            drink: [["Classic Milk Tea", 4.50],  ["Brown Sugar Milk Tea", 5.50] ["Thai Milk Tea", 5.00] ["Taro Milk Tea", 5.25],  ["Matcha Milk Tea", 5.50]
-              ["Strawberry Tea", 4.75] ["Mango Tea", 4.75] ["Peach Tea", 4.50] ["Passion Fruit Tea", 5.00] ["Iced Coffee", 4.00],
-              ["Caramel Coffee", 4.75] ["Vietnamese Coffee", 5.25].map(name => [name, 0]),
-            size: [["Small", 0], ["Medium", .50],["Large", 1.00]],
+                        drink: [["Classic Milk Tea", 4.50], ["Brown Sugar Milk Tea", 5.50], ["Thai Milk Tea", 5.00],
+              ["Taro Milk Tea", 5.25], ["Matcha Milk Tea", 5.50], ["Strawberry Tea", 4.75], ["Mango Tea", 4.75],
+              ["Peach Tea", 4.50], ["Passion Fruit Tea", 5.00], ["Iced Coffee", 4.00],
+              ["Caramel Coffee", 4.75], ["Vietnamese Coffee", 5.25]],
+             size: [["Small", 0], ["Medium", .50],["Large", 1.00]],
             sweetness: ["0%", "25%", "50%", "75%", "100%"].map(name => [name, 0]),
             ice: ["No ice", "Light ice", "Regular Ice", "Extra Ice"].map(name => [name,0]),
             topping: [["Tapioca Pearls", 0.75], ["Strawberry Popping Boba",0.75], ["Mango Popping Boba", 0.75], ["Jelly", 0.75], ["Pudding", 0.75]]
